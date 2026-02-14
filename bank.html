@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Surprise | Monish & Aishu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Arima:wght@300;500;700&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --glass: rgba(255, 255, 255, 0.92);
+            --accent: #ff4d6d;
+            --deep-accent: #c9184a;
+            --gold: #ffb703;
+            --text: #2d3436;
+        }
+
+        body {
+            margin: 0; padding: 0;
+            background: radial-gradient(circle at center, #fff5f7 0%, #ffcbd5 100%);
+            font-family: 'Arima', sans-serif;
+            height: 100vh; display: flex; align-items: center; justify-content: center;
+            overflow: hidden;
+        }
+
+        #bg-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+
+        .glass-container {
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border-radius: 35px;
+            padding: 3rem;
+            box-shadow: 0 25px 60px rgba(231, 76, 60, 0.15);
+            max-width: 460px; width: 85%;
+            z-index: 10; position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        /* --- Audio Visualizer Bar --- */
+        #music-status {
+            position: absolute; top: 20px; right: 20px;
+            display: none; align-items: center; gap: 5px;
+            font-size: 0.8rem; color: var(--accent);
+        }
+        .bar { width: 3px; height: 15px; background: var(--accent); animation: pulse 1s infinite alternate; }
+        .bar:nth-child(2) { animation-delay: 0.2s; }
+        .bar:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes pulse { from { height: 5px; } to { height: 20px; } }
+
+        /* --- Phase Styles --- */
+        #gift-wrapper { cursor: pointer; transition: 0.3s; margin-bottom: 20px; }
+        .gift-box {
+            width: 130px; height: 100px; background: linear-gradient(135deg, var(--accent), var(--deep-accent));
+            margin: 0 auto; border-radius: 12px; position: relative;
+            animation: shake 1.8s infinite;
+        }
+        .gift-box::before { content: ''; position: absolute; left: 50%; transform: translateX(-50%); width: 28px; height: 100%; background: var(--gold); }
+        .lid { width: 140px; height: 35px; background: #ff758f; position: absolute; top: -20px; left: -5px; border-radius: 8px; }
+
+        h1 { font-family: 'Dancing Script', cursive; font-size: 2.6rem; color: var(--deep-accent); margin: 5px 0; }
+        
+        .letter-content {
+            text-align: left; font-size: 1.15rem; color: var(--text);
+            line-height: 1.8; margin: 25px 0; max-height: 280px;
+            overflow-y: auto; white-space: pre-wrap; padding-right: 15px;
+            border-left: 3px solid var(--accent); padding-left: 15px;
+        }
+
+        .btn-group { display: flex; gap: 15px; justify-content: center; margin-top: 30px; }
+        .btn {
+            padding: 14px 32px; border: none; border-radius: 50px;
+            font-weight: 700; font-size: 1.1rem; cursor: pointer;
+            transition: 0.3s; font-family: 'Arima', sans-serif;
+        }
+        .btn-yes { background: var(--accent); color: white; }
+        .btn-no { background: #f1f2f6; color: #747d8c; position: relative; }
+
+        .hidden { display: none; }
+        .fade-in { animation: fadeIn 1s forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes shake { 0%, 100% { transform: rotate(0); } 15% { transform: rotate(6deg); } 30% { transform: rotate(-6deg); } }
+
+        .ring { font-size: 75px; display: block; margin-bottom: 20px; animation: shine 2s infinite; }
+        @keyframes shine { 0%, 100% { filter: drop-shadow(0 0 5px gold); } 50% { filter: drop-shadow(0 0 25px gold) brightness(1.2); } }
+    </style>
+</head>
+<body>
+
+    <div id="bg-container"></div>
+
+    <audio id="love-song" loop>
+        <source src="love.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="glass-container" id="main-interface">
+        <div id="music-status">
+            <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+            <span>Playing Music</span>
+        </div>
+
+        <div id="phase-gift" onclick="toLetter()">
+            <div id="gift-wrapper">
+                <div class="gift-box"><div class="lid"></div></div>
+            </div>
+            <h1>Hey Aishu...</h1>
+            <p>You have a special surprise!</p>
+            <p style="color: var(--accent); font-weight: bold; text-transform: uppercase;">Tap to Open</p>
+        </div>
+
+        <div id="phase-letter" class="hidden">
+            <h1>Dearest Aishu,</h1>
+            <div class="letter-content" id="letter-body">உன்னிடம் என் மனதைத் திறக்க இதைவிட ஒரு சிறந்த தருணம் இருக்க முடியாது. என் வாழ்க்கைப் பயணத்தில் நான் தேடிய தேடல் நீ, நான் கண்ட கனவுகளின் நிஜம் நீ.
+
+உன் மேல் வைத்திருக்கும் அன்பை வார்த்தைகளால் சொல்லிவிட முடியாது. நீ என் வாழ்க்கையில் வந்த பிறகுதான், ஒவ்வொரு நாளும் எவ்வளவு அழகானது என்று எனக்கு புரிந்தது.
+
+என் குழப்பமான நேரங்களில் எனக்கு அமைதி தருவதும் நீதான், என் சோர்வான நேரங்களில் எனக்குப் புன்னகை தருவதும் நீதான். நீ வெறும் என் காதலி மட்டுமல்ல, என் உற்ற தோழி, என் சரிபாதி.
+
+எப்பொழுதும், எந்தச் சூழ்நிலையிலும் உன்னோடு நான் இருப்பேன். உன் கைகளைப் பிடித்துக்கொண்டு இந்த உலகத்தையே சுற்றி வர ஆசைப்படுகிறேன். நீயே என் உலகம்.</div>
+            
+            <p style="font-family: 'Dancing Script'; font-size: 1.8rem; color: var(--accent); margin: 0;">Yours Forever, Monish</p>
+            
+            <div class="btn-group">
+                <button class="btn btn-yes" onclick="toMarry()">I Love You! ❤️</button>
+                <button class="btn btn-no" id="no-btn" onmouseover="dodge()">No</button>
+            </div>
+        </div>
+
+        <div id="phase-marry" class="hidden">
+            <span class="ring">💍</span>
+            <h1 style="font-size: 2.2rem;">Will You Marry Me?</h1>
+            <p style="font-size: 1.15rem; color: #444;">
+                Aishu, I want all of my tomorrows to be with you.
+            </p>
+            <button class="btn btn-yes" style="width: 100%; background: var(--deep-accent);" onclick="finalCelebrate()">YES!</button>
+        </div>
+    </div>
+
+    <script>
+        const song = document.getElementById('love-song');
+
+        function toLetter() {
+            // PLAY SONG AUTOMATICALLY ON INTERACTION
+            song.play().catch(e => console.log("Audio play blocked until interaction."));
+            document.getElementById('music-status').style.display = 'flex';
+
+            document.getElementById('phase-gift').classList.add('hidden');
+            const el = document.getElementById('phase-letter');
+            el.classList.remove('hidden'); el.classList.add('fade-in');
+            setInterval(spawn, 800);
+        }
+
+        function toMarry() {
+            document.getElementById('phase-letter').classList.add('hidden');
+            const el = document.getElementById('phase-marry');
+            el.classList.remove('hidden'); el.classList.add('fade-in');
+        }
+
+        function finalCelebrate() {
+            const card = document.getElementById('main-interface');
+            card.innerHTML = `<div class="fade-in"><h1>Forever!</h1><p>I love you, Aishu.</p><div style="font-size: 40px;">♾️❤️</div></div>`;
+            document.body.style.background = "#ffb3c1";
+            setInterval(spawn, 150);
+        }
+
+        function dodge() {
+            const btn = document.getElementById('no-btn');
+            const x = Math.random() * (window.innerWidth - btn.offsetWidth - 50);
+            const y = Math.random() * (window.innerHeight - btn.offsetHeight - 50);
+            btn.style.position = "fixed"; btn.style.left = x + "px"; btn.style.top = y + "px";
+        }
+
+        function spawn() {
+            const container = document.getElementById('bg-container');
+            const p = document.createElement('div');
+            p.innerHTML = ['🌸', '💗', '✨', '❤️'][Math.floor(Math.random() * 4)];
+            p.style.position = "absolute";
+            p.style.left = Math.random() * 100 + "vw";
+            p.style.top = "110vh";
+            p.style.fontSize = "25px";
+            p.style.transition = "transform 6s linear, opacity 6s";
+            container.appendChild(p);
+            setTimeout(() => {
+                p.style.transform = `translateY(-120vh) rotate(${Math.random()*360}deg)`;
+                p.style.opacity = "0";
+            }, 100);
+            setTimeout(() => p.remove(), 6000);
+        }
+    </script>
+</body>
+</html>
